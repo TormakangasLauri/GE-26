@@ -90,6 +90,10 @@ public class PlayerMove : MonoBehaviour
     public float frequency = 0.5f;
     private float headVerticalRotation;
     private float headHorizontalRotation;
+    public InputActionReference mouseLook;
+    public Transform playerCamera;           
+    public float standCameraHeight = 1.6f;   
+    public float crouchCameraHeight = 0.8f;  // 
 
     [Header("Checks")]
     public GameObject groundCheck;
@@ -119,14 +123,9 @@ public class PlayerMove : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-        body = transform.GetChild(0).gameObject;
-        head = transform.GetChild(1).gameObject;
-        cameraObject = head.transform.GetChild(0).gameObject;
-
-        originalBodyScale = body.transform.localScale;
-        originalHeadHeight = head.transform.localPosition.y;
-
-        head.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        
+        originalBodyScale = transform.localScale;
+        if (playerCamera != null) playerCamera.localPosition = new Vector3(0, standCameraHeight, 0);
     }
 
     private void Update()
@@ -337,8 +336,8 @@ public class PlayerMove : MonoBehaviour
     void EnterCrouch()
     {
         crouching = true;
-        body.transform.localScale = new Vector3(originalBodyScale.x, originalBodyScale.y/2, originalBodyScale.z);
-        head.transform.localPosition = new Vector3(0, originalHeadHeight/2, 0);
+        transform.localScale = originalBodyScale;
+        if (playerCamera != null) playerCamera.localPosition = new Vector3(0, standCameraHeight, 0);
         if (!grounded) transform.position = transform.position + Vector3.up * 0.75f;
     }
 
@@ -448,7 +447,7 @@ public class PlayerMove : MonoBehaviour
         dashCoolDown = 0.1f;
 
         Vector3 startPos = transform.position;
-        Vector3 dashDirection = head.transform.rotation * Vector3.forward;
+        Vector3 dashDirection = playerCamera != null ? playerCamera.rotation * Vector3.forward : transform.forward;
         float startVelocity = rb.linearVelocity.magnitude;
         
         rb.AddForce(dashDirection * (dashDistance * 10), ForceMode.Impulse);
@@ -468,22 +467,20 @@ public class PlayerMove : MonoBehaviour
     
     void CameraRotation()
     {
-        // Rotate the Camera around its local X axis
-        float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-        headVerticalRotation -= inputY;
+        if (playerCamera == null) return;
+
+        Vector2 mouseDelta = mouseLook.action.ReadValue<Vector2>() * mouseSensitivity;
+        headVerticalRotation -= mouseDelta.y;
         headVerticalRotation = Mathf.Clamp(headVerticalRotation, -90f, 90f);
-        head.transform.localRotation = Quaternion.Euler(headVerticalRotation, 0f, 0f);
-        
-        // Rotate the Player Object around its Y axis
-        float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        headHorizontalRotation += inputX;
+        playerCamera.localRotation = Quaternion.Euler(headVerticalRotation, 0f, 0f);
+
+        headHorizontalRotation += mouseDelta.x;
         transform.rotation = Quaternion.Euler(0f, headHorizontalRotation, 0f);
 
-        // Gamepad input
         Vector2 input = rightStick.action.ReadValue<Vector2>();
         headVerticalRotation -= input.y;
         headVerticalRotation = Mathf.Clamp(headVerticalRotation, -90f, 90f);
-        head.transform.localRotation = Quaternion.Euler(headVerticalRotation, 0, 0);
+        playerCamera.localRotation = Quaternion.Euler(headVerticalRotation, 0, 0);
 
         headHorizontalRotation += input.x;
         transform.rotation = Quaternion.Euler(0f, headHorizontalRotation, 0f);
