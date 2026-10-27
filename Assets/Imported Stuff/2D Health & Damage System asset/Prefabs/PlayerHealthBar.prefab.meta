@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 011224f15d49d3544b3d05403f1d7138
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 337862
+  packageName: 2D Health And Damage Plugin
+  packageVersion: 1.0
+  assetPath: Assets/2D Health & Damage System asset/Prefabs/PlayerHealthBar.prefab
+  uploadId: 878258

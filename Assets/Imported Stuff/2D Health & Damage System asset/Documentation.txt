@@ -1,0 +1,73 @@
+2D Health & Damage System – README
+Overview
+This 2D Health & Damage System is a lightweight, modular, and ready-to-use package for Unity.
+It includes:
+* Health System (Health.cs) with events and modular design
+* Damage Dealer (DamageDealer2D.cs) supporting single-hit and repeated damage
+* Player Movement (PlayerMovement2D.cs) with optional knockback handling
+* Health UI (HealthUI.cs) for screen-space or world-space health bars
+* Prefabs for quick setup and demo scenes
+This package is ideal for 2D platformers, action games, or prototype projects. Graphics are placeholders; functionality is fully operational. It is a Plug-In.
+
+Contents
+Folder/FileDescriptionScripts/Core C# scripts: Health, DamageDealer2D, PlayerMovement2D, HealthUIPrefabs/Player and DamageDealer prefabs with colliders, Rigidbody2D, Health componentScenes/Demo scene showcasing player movement, damage, knockback, and health barsREADME.mdDocumentation file
+Setup Instructions
+Player Setup
+1. Create or open your player GameObject.
+2. Attach Health.cs component.
+3. Add PlayerMovement2D.cs for movement.
+4. Add HealthUI.cs and link to your player’s Health component.
+5. Add a 2D Collider (BoxCollider2D / CapsuleCollider2D) and Rigidbody2D (Dynamic) for physics.
+
+Enemy Setup
+1. Create a simple enemy GameObject.
+2. Attach Health.cs.
+3. Attach DamageDealer2D.cs for attack colliders or environmental hazards.
+4. In cases of projectile shooting enemies DamageDealer2D.cs goes on the projectile.
+5. Add 2D Collider(s) and Rigidbody2D as needed.
+
+HealthUI Setup
+* Attach to a Canvas (Screen Space for HUD or World Space for floating bars).
+* Assign the targetHealth property to the Health component of the object you want to monitor.
+* Optional: use CanvasGroup for fade-in/fade-out effects.
+
+DamageDealer2D Notes
+* Supports single-hit (one collision) or repeated damage (continuous while overlapping).
+* Can filter by LayerMask, tag, or ignore self.
+* Optional knockback applies impulse to the target Rigidbody2D.
+* Events: OnHit and OnKill are exposed for custom behaviors.
+
+PlayerMovement2D Notes
+* Handles horizontal movement and jump.
+* Can integrate knockback by adding velocities directly to Rigidbody2D.
+* Works on Dynamic Rigidbody2D. For “Kinematic” Rigidbody2D, adjust movement logic.
+
+Demo Scene
+* The demo scene showcases:
+o Player movement
+o Single-hit and repeated damage
+o Knockback effect
+o Health bar updates
+* Placeholder graphics used (squares, circles).
+
+Free Lite Version
+* A separate Lite demo is available for free.
+* Includes only Health.cs and a minimal HealthUI setup.
+* No enemies, damage system, knockback, or advanced events.
+* Allows testing the health system without exposing full paid features.
+
+Tips
+* Use placeholder sprites or your own graphics — this system is art-agnostic.
+* Multiple enemy prefabs can share a single DamageDealer2D script.
+* Use ResetHitHistory() on DamageDealer2D for reusable traps or hazards.
+* Adjust repeatDamageInterval for continuous damage timing.
+
+Requirements
+* Unity 2021.3 or later (tested with 2D template)
+* No external assets required; fully script-based
+* Supports both screen-space HUD and world-space floating bars
+
+License
+* You may use this system in personal or commercial projects.
+* Redistribution of scripts as-is is not allowed without permission.
+

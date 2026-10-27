@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: fd39a6f2815a2694189997776dddc2f0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 337862
+  packageName: 2D Health And Damage Plugin
+  packageVersion: 1.0
+  assetPath: Assets/2D Health & Damage System asset/Scripts/DamageDealer2D.cs
+  uploadId: 878258

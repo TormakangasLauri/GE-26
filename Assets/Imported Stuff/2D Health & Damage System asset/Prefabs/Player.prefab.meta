@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1c74f9d2a50ffb145870f0c86ebb0736
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 337862
+  packageName: 2D Health And Damage Plugin
+  packageVersion: 1.0
+  assetPath: Assets/2D Health & Damage System asset/Prefabs/Player.prefab
+  uploadId: 878258
